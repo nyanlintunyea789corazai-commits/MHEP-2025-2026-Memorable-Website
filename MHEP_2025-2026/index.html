@@ -266,19 +266,7 @@
     .glass-proud { font-family:var(--sans); font-size:14px; color:var(--text); line-height:1.6; font-weight:400; }
     .glass-hint { flex-shrink:0; text-align:center; font-size:9px; color:rgba(14,165,233,.35); margin-top:5px; letter-spacing:.1em; font-family:var(--sans); }
 
-    /* ══════════════════════════════
-       SNAPSHOT / MASONRY
-    ══════════════════════════════ */
-    .snap-hero { background-image:url('snap/snap-shot.jpg'); }
-    .masonry { columns:4; column-gap:16px; padding:0 48px 72px; }
-    .snap-item { break-inside:avoid; margin-bottom:16px; border-radius:12px; overflow:hidden; position:relative; border:1px solid rgba(186,230,253,.4); cursor:pointer; transition:transform .35s ease,box-shadow .35s ease; box-shadow:0 2px 10px rgba(3,105,161,.05); }
-    .snap-item:hover { transform:scale(1.02); box-shadow:0 12px 36px rgba(3,105,161,.12); }
-    .snap-item img { width:100%; display:block; object-fit:cover; transition:transform .6s ease; }
-    .snap-item:hover img { transform:scale(1.06); }
-    .snap-cap { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent,rgba(4,21,37,.7)); padding:28px 14px 10px; font-family:var(--serif); font-size:13px; font-style:italic; color:rgba(255,255,255,.9); opacity:0; transition:opacity .35s; }
-    .snap-item:hover .snap-cap { opacity:1; }
-    .snap-item.small-snap { max-height: 220px; overflow: hidden; }
-    .snap-item.small-snap img { height: 220px; width: 100%; object-fit: cover; }
+
 
     /* ══════════════════════════════
        FOOTER (shared)
@@ -362,7 +350,7 @@
       <li><button onclick="switchTab('term2')" data-tab="term2">2nd Term</button></li>
       <li><button onclick="switchTab('term3')" data-tab="term3">3rd Term</button></li>
       <li><button onclick="switchTab('people')" data-tab="people">People</button></li>
-      <li><button onclick="switchTab('snapshot')" data-tab="snapshot">Snapshot</button></li>
+      
     </ul>
 
     <a href="About.html" target="_blank" class="about-link-btn">
@@ -394,45 +382,7 @@
       </div>
     </section>
 
-    <!-- Scroll Strip -->
-    <section class="gallery-section" id="journey">
-      <div class="gallery-label fade-up">
-        <div class="gallery-tag">A Year in Frames</div>
-        <h2>Our <em>Journey</em></h2>
-        <div class="gallery-rule"></div>
-        <p>"Hover to pause · hover a photo to see it closer"</p>
-      </div>
-      <div class="scroll-strip-outer fade-up">
-        <div class="scroll-track">
-          <div class="strip-card"><img src="Snap/Hi_Guys.jpg" alt="First Day"><div class="strip-cap"><span>First Day</span></div></div>
-          <div class="strip-card"><img src="Snap/hold_on.jpg" alt="Orientation"><div class="strip-cap"><span>Orientation</span></div></div>
-          <div class="strip-card"><img src="Snap/Lim_Funny_face.jpg" alt="Peace Education"><div class="strip-cap"><span>Peace Education</span></div></div>
-          <div class="strip-card"><img src="Snap/Zee-CDC_Exchange.jpg" alt="Student Exchange"><div class="strip-cap"><span>Student Exchange</span></div></div>
-          <div class="strip-card"><img src="Snap/dahthoo_&_MinKhant.jpg" alt="Halloween Party"><div class="strip-cap"><span>Halloween Party</span></div></div>
-          <div class="strip-card"><img src="Snap/cooking_in_HEaven.jpg" alt="Dinner Night"><div class="strip-cap"><span>Dinner Night</span></div></div>
-          <div class="strip-card"><img src="Snap/Hla_Myo_Middle_Finger.jpg" alt="Student Exchange"><div class="strip-cap"><span>Student Exchange</span></div></div>
-          <div class="strip-card"><img src="Snap/like_a_Ghost_Pone_nyat.jpg" alt="Team Activities"><div class="strip-cap"><span>Team Activities</span></div></div>
-          <div class="strip-card"><img src="Snap/Eh_thar_py_Snap.jpg" alt="Our School"><div class="strip-cap"><span>Our School</span></div></div>
-          <div class="strip-card"><img src="Snap/zee_dinner_night.jpg" alt="Deep Cleaning"><div class="strip-cap"><span>Deep Cleaning</span></div></div>
-          <div class="strip-card"><img src="Snap/Ann.jpg" alt="Debate"><div class="strip-cap"><span>Debate Training</span></div></div>
-          <div class="strip-card"><img src="Snap/Snap_Aung_Khit.jpg" alt="Dinner Night"><div class="strip-cap"><span>Dinner Night</span></div></div>
-          <!-- Duplicate for seamless loop -->
-          <div class="strip-card"><img src="Snap/Hi_Guys.jpg" alt="First Day"><div class="strip-cap"><span>First Day</span></div></div>
-          <div class="strip-card"><img src="Snap/hold_on.jpg" alt="Orientation"><div class="strip-cap"><span>Orientation</span></div></div>
-          <div class="strip-card"><img src="Snap/Lim_Funny_face.jpg" alt="Peace Education"><div class="strip-cap"><span>Peace Education</span></div></div>
-          <div class="strip-card"><img src="Snap/Zee-CDC_Exchange.jpg" alt="Student Exchange"><div class="strip-cap"><span>Student Exchange</span></div></div>
-          <div class="strip-card"><img src="Snap/dahthoo_&_MinKhant.jpg" alt="Halloween Party"><div class="strip-cap"><span>Halloween Party</span></div></div>
-          <div class="strip-card"><img src="Snap/cooking_in_HEaven.jpg" alt="Dinner Night"><div class="strip-cap"><span>Dinner Night</span></div></div>
-          <div class="strip-card"><img src="Snap/Hla_Myo_Middle_Finger.jpg" alt="Student Exchange"><div class="strip-cap"><span>Student Exchange</span></div></div>
-          <div class="strip-card"><img src="Snap/like_a_Ghost_Pone_nyat.jpg" alt="Team Activities"><div class="strip-cap"><span>Team Activities</span></div></div>
-          <div class="strip-card"><img src="Snap/Eh_thar_py_Snap.jpg" alt="Our School"><div class="strip-cap"><span>Our School</span></div></div>
-          <div class="strip-card"><img src="Snap/zee_dinner_night.jpg" alt="Deep Cleaning"><div class="strip-cap"><span>Deep Cleaning</span></div></div>
-          <div class="strip-card"><img src="Snap/Ann.jpg" alt="Debate"><div class="strip-cap"><span>Debate Training</span></div></div>
-          <div class="strip-card"><img src="Snap/Snap_Aung_Khit.jpg" alt="Dinner Night"><div class="strip-cap"><span>Dinner Night</span></div></div>
-        </div>
-      </div>
-      <div class="gallery-cta fade-up"><a onclick="switchTab('snapshot')">View All Snapshots &nbsp;→</a></div>
-    </section>
+  
 
     <!-- Cards -->
     <section class="cards-section">
@@ -462,7 +412,7 @@
         <li><button onclick="switchTab('term3')">3rd Term</button></li>
         <li><button onclick="switchTab('people')">People</button></li>
         <li><a href="About.html" target="_blank" style="color:rgba(186,230,253,.4);text-decoration:none;font-size:13px;">About</a></li>
-        <li><button onclick="switchTab('snapshot')">Snapshot</button></li>
+      
       </ul>
       <div class="footer-socials">
         <a href="https://www.facebook.com/minmahawhighered" target="_blank"><i class="fab fa-facebook"></i></a>
