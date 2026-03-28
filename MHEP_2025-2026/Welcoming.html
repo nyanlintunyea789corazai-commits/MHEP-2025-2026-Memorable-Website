@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome — Minmahaw</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;0,600;1,200;1,300;1,400&family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black: #050403;
+      --white: #f5f2ed;
+      --sand:   #0ea5e9;
+    }
+    html, body {
+      width: 100%; height: 100%;
+      background: #000;
+      overflow: hidden;
+      font-family: 'DM Sans', sans-serif;
+      cursor: none;
+    }
+
+    /* CURSOR */
+    .cursor {
+      position: fixed; width: 7px; height: 7px;
+      background: var(--sand); border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+      mix-blend-mode: difference;
+      transition: width 0.3s, height 0.3s;
+    }
+    .cursor-ring {
+      position: fixed; width: 36px; height: 36px;
+      border: 1px solid rgba(200,188,158,0.4); border-radius: 50%;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: all 0.18s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+
+    /* GRAIN CANVAS */
+    #grain {
+      position: fixed; inset: -50%;
+      width: 200%; height: 200%;
+      z-index: 1000; pointer-events: none;
+      opacity: 0.038;
+      animation: grainMove 0.08s steps(1) infinite;
+    }
+    @keyframes grainMove {
+      0%   { transform: translate(0,0); }
+      20%  { transform: translate(-2%,-2%); }
+      40%  { transform: translate(2%,1%); }
+      60%  { transform: translate(-1%,3%); }
+      80%  { transform: translate(3%,-1%); }
+      100% { transform: translate(-2%,2%); }
+    }
+
+    /* CINEMATIC BARS */
+    .bar-top, .bar-bottom {
+      position: fixed; left: 0; right: 0; z-index: 500;
+      background: #000;
+      transition: height 1.5s cubic-bezier(0.77,0,0.175,1);
+    }
+    .bar-top    { top: 0;    height: 20vh; }
+    .bar-bottom { bottom: 0; height: 20vh; }
+    .bar-top.open,
+    .bar-bottom.open { height: 0; }
+
+    /* SCAN LINE */
+    .scanline {
+      position: fixed; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, transparent, rgba(200,188,158,0.12), transparent);
+      z-index: 600; pointer-events: none;
+      animation: scanAnim 7s linear infinite;
+      opacity: 0;
+    }
+    @keyframes scanAnim {
+      0%   { top: -2px; opacity: 0; }
+      4%   { opacity: 0.8; }
+      96%  { opacity: 0.4; }
+      100% { top: 100vh; opacity: 0; }
+    }
+
+    /* PROGRESS BAR */
+    .progress-bar {
+      position: fixed; top: 0; left: 0; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(200,188,158,0.6));
+      z-index: 800; width: 0%;
+    }
+
+    /* FLASH */
+    .flash-in {
+      position: fixed; inset: 0; z-index: 900;
+      background: #fff; opacity: 0; pointer-events: none;
+      animation: flashAnim 0.5s ease 0.05s forwards;
+    }
+    @keyframes flashAnim {
+      0%   { opacity: 0.5; }
+      100% { opacity: 0; }
+    }
+
+    /* GLITCH OVERLAY */
+    .glitch {
+      position: fixed; inset: 0; z-index: 700;
+      pointer-events: none; opacity: 0;
+    }
+    .glitch.active {
+      animation: glitchAnim 0.55s ease forwards;
+    }
+    @keyframes glitchAnim {
+      0%   { opacity: 0; }
+      8%   { opacity: 0.07; background: rgba(200,188,158,0.12); }
+      16%  { opacity: 0; }
+      25%  { opacity: 0.05; background: rgba(255,255,255,0.07);
+             clip-path: inset(35% 0 45% 0); }
+      33%  { opacity: 0; }
+      42%  { opacity: 0.03; clip-path: inset(65% 0 18% 0); }
+      100% { opacity: 0; clip-path: none; }
+    }
+
+    /* PARTICLE CANVAS */
+    #particles {
+      position: fixed; inset: 0; z-index: 1;
+      pointer-events: none;
+    }
+
+    /* BACKGROUND */
+    .banner {
+      position: relative; width: 100vw; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .banner-bg {
+      position: absolute; inset: 0;
+      
+      background-size: cover; background-position: center;
+      filter: brightness(0.20) saturate(0.38);
+      transform: scale(1.07);
+      transition: transform 14s ease, filter 2.5s ease;
+      z-index: 0;
+    }
+    .banner-bg.animate { transform: scale(1.0); filter: brightness(0.28) saturate(0.50); }
+    .banner-overlay {
+      position: absolute; inset: 0; z-index: 2;
+      background:
+        radial-gradient(ellipse 85% 85% at center, transparent 28%, rgba(0,0,0,0.75) 100%),
+        linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, transparent 35%, transparent 65%, rgba(0,0,0,0.48) 100%);
+    }
+    .vignette {
+      position: absolute; inset: 0; z-index: 3; pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 48%, rgba(0,0,0,0.55) 100%);
+      animation: vigBreath 5s ease-in-out infinite;
+    }
+    @keyframes vigBreath {
+      0%,100% { opacity: 1; } 50% { opacity: 0.65; }
+    }
+
+    /* HORIZONTAL ACCENT LINES */
+    .h-line {
+      position: absolute; left: 0; right: 0; height: 1px; z-index: 4;
+      background: linear-gradient(to right,
+        transparent 4%, rgba(200,188,158,0.10) 25%,
+        rgba(200,188,158,0.20) 50%,
+        rgba(200,188,158,0.10) 75%, transparent 96%);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 2s cubic-bezier(0.77,0,0.175,1);
+    }
+    .h-line.top    { top: 13%; }
+    .h-line.bottom { bottom: 13%; }
+    .h-line.expand { transform: scaleX(1); }
+
+    /* CONTENT */
+    .content {
+      position: relative; z-index: 10;
+      text-align: center; max-width: 900px;
+      padding: 0 40px;
+    }
+
+    .eyebrow {
+      font-family: 'DM Sans', sans-serif; font-weight: 200;
+      font-size: 0.55rem; letter-spacing: 9px;
+      text-transform: uppercase;
+      color: rgba(200,188,158,0.0);
+      margin-bottom: 34px;
+      transition: color 1.2s ease, letter-spacing 1.4s ease;
+    }
+    .eyebrow.show { color: rgba(200,188,158,0.52); letter-spacing: 11px; }
+
+    /* CLIP-REVEAL titles */
+    .title-clip { overflow: hidden; }
+    .title-clip + .title-clip { margin-top: 4px; }
+
+    .title {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 200; font-size: clamp(2.8rem,8vw,6.4rem);
+      color: var(--white); line-height: 1.08;
+      letter-spacing: 0.05em;
+      transform: translateY(108%);
+      transition: transform 1.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .title.italic {
+      font-style: italic; font-weight: 200;
+      font-size: clamp(2rem,5.5vw,4.4rem);
+      color: rgba(245,242,237,0.48);
+    }
+    .title.reveal { transform: translateY(0); }
+
+    /* RULE */
+    .rule {
+      width: 0; height: 1px; margin: 30px auto;
+      background: linear-gradient(to right, transparent, rgba(200,188,158,0.55), transparent);
+      transition: width 2s cubic-bezier(0.77,0,0.175,1);
+    }
+    .rule.expand { width: 300px; }
+
+    /* YEAR */
+    .year-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 20px; margin-bottom: 48px;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    .year-row.show { opacity: 1; transform: translateY(0); }
+    .year-dash { width: 30px; height: 1px; background: rgba(200,188,158,0.28); }
+    .year-text {
+      font-family: 'DM Sans', sans-serif; font-weight: 200;
+      font-size: 0.60rem; letter-spacing: 6px;
+      text-transform: uppercase; color: rgba(200,188,158,0.38);
+    }
+
+    /* BUTTON */
+    .enter-btn {
+      display: inline-block; padding: 14px 52px;
+      border: 1px solid rgba(200,188,158,0.28); border-radius: 2px;
+      font-family: 'DM Sans', sans-serif; font-weight: 300;
+      font-size: 0.60rem; letter-spacing: 7px;
+      text-transform: uppercase; text-decoration: none;
+      color: rgba(245,242,237,0.42);
+      background: transparent; position: relative; overflow: hidden;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 1s ease, transform 1s ease, color 0.35s, border-color 0.35s;
+    }
+    .enter-btn.show { opacity: 1; transform: translateY(0); }
+    .enter-btn::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--sand); z-index: -1;
+      transform: translateX(-101%);
+      transition: transform 0.42s cubic-bezier(0.77,0,0.175,1);
+    }
+    .enter-btn:hover::before { transform: translateX(0); }
+    .enter-btn:hover { color: var(--black); border-color: var(--sand); }
+
+    /* CORNER TAGS */
+    .ctag {
+      position: fixed; z-index: 20;
+      font-family: 'DM Sans', sans-serif; font-weight: 200;
+      font-size: 0.48rem; letter-spacing: 3px;
+      text-transform: uppercase; color: rgba(200,188,158,0.22);
+      opacity: 0; transition: opacity 1.2s ease;
+    }
+    .ctag.show { opacity: 1; }
+    .ctag.tl { top: 26px; left: 34px; }
+    .ctag.tr { top: 26px; right: 34px; }
+    .ctag.bl { bottom: 26px; left: 34px; }
+    .ctag.br { bottom: 26px; right: 34px; }
+
+    /* PAGE-OUT */
+    .page-out {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #000; opacity: 0; pointer-events: none;
+      transition: opacity 0.75s ease;
+    }
+    .page-out.active { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<div class="cursor"      id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<canvas id="grain"></canvas>
+<canvas id="particles"></canvas>
+
+<div class="bar-top"    id="bTop"></div>
+<div class="bar-bottom" id="bBot"></div>
+<div class="scanline"></div>
+<div class="progress-bar" id="prog"></div>
+<div class="flash-in"></div>
+<div class="glitch" id="glitch"></div>
+<div class="page-out" id="pageOut"></div>
+
+<div class="banner">
+  <video id="bg" autoplay muted loop playsinline
+    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.20) saturate(0.38);transition:filter 2.5s ease;">
+    <source src="intro2.mp4" type="video/mp4">
+  </video>
+  <div class="banner-overlay"></div>
+  <div class="vignette"></div>
+  <div class="h-line top"    id="hl1"></div>
+  <div class="h-line bottom" id="hl2"></div>
+
+  <div class="content">
+    <p class="eyebrow" id="ey">Education for Friendship Foundation</p>
+
+    <div class="title-clip">
+      <span class="title" id="t1">Minmahaw</span>
+    </div>
+    <div class="title-clip">
+      <span class="title italic" id="t2">Higher Education Program</span>
+    </div>
+
+    <div class="rule" id="rule"></div>
+
+    <div class="year-row" id="yr">
+      <div class="year-dash"></div>
+      <span class="year-text">A Year of Growth &amp; Friendship · 2024–2025</span>
+      <div class="year-dash"></div>
+    </div>
+
+    <a href="index_original.html" class="enter-btn" id="btn">Enter</a>
+  </div>
+</div>
+
+<div class="ctag tl">MHEP</div>
+<div class="ctag tr" id="ctr">2024 — 2025</div>
+<div class="ctag bl" id="cbl">Minmahaw · Mae Sot</div>
+<div class="ctag br" id="cbr">Est. 2024</div>
+
+<script>
+/* CURSOR */
+const cur = document.getElementById('cur');
+const ring = document.getElementById('ring');
+let mx=window.innerWidth/2, my=window.innerHeight/2, rx=mx, ry=my;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+(function animCur() {
+  rx += (mx-rx)*0.12; ry += (my-ry)*0.12;
+  cur.style.left  = mx+'px'; cur.style.top  = my+'px';
+  ring.style.left = rx+'px'; ring.style.top = ry+'px';
+  requestAnimationFrame(animCur);
+})();
+document.querySelectorAll('a').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ ring.style.width=ring.style.height='52px'; ring.style.borderColor='rgba(200,188,158,0.7)'; });
+  el.addEventListener('mouseleave',()=>{ ring.style.width=ring.style.height='36px'; ring.style.borderColor='rgba(200,188,158,0.4)'; });
+});
+
+/* FILM GRAIN */
+(function(){
+  const c=document.getElementById('grain');
+  const ctx=c.getContext('2d');
+  c.width=c.height=256;
+  function draw(){
+    const d=ctx.createImageData(256,256);
+    for(let i=0;i<d.data.length;i+=4){
+      const v=Math.random()*255|0;
+      d.data[i]=d.data[i+1]=d.data[i+2]=v; d.data[i+3]=255;
+    }
+    ctx.putImageData(d,0,0);
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* PARTICLES */
+(function(){
+  const c=document.getElementById('particles');
+  const ctx=c.getContext('2d');
+  let W,H,pts=[];
+  function resize(){ W=c.width=innerWidth; H=c.height=innerHeight; }
+  resize(); addEventListener('resize',resize);
+  function rp(){
+    return{
+      x:Math.random()*W, y:H+Math.random()*20,
+      s:Math.random()*1.5+0.2,
+      vx:(Math.random()-0.5)*0.25,
+      vy:-(Math.random()*0.4+0.1),
+      a:Math.random()*0.4+0.06,
+      l:Math.random(),
+      d:Math.random()*0.0025+0.001
+    };
+  }
+  for(let i=0;i<180;i++) pts.push(rp());
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach((p,i)=>{
+      p.x+=p.vx; p.y+=p.vy; p.l-=p.d;
+      if(p.l<=0||p.y<-5) pts[i]=rp();
+      const a=Math.min(p.a, p.l*2);
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.s,0,Math.PI*2);
+      ctx.fillStyle=`rgba(200,188,158,${a})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* SEQUENCE */
+const bg    = document.getElementById('bg');
+const bTop  = document.getElementById('bTop');
+const bBot  = document.getElementById('bBot');
+const hl1   = document.getElementById('hl1');
+const hl2   = document.getElementById('hl2');
+const ey    = document.getElementById('ey');
+const t1    = document.getElementById('t1');
+const t2    = document.getElementById('t2');
+const rule  = document.getElementById('rule');
+const yr    = document.getElementById('yr');
+const btn   = document.getElementById('btn');
+const glitch= document.getElementById('glitch');
+const prog  = document.getElementById('prog');
+const ctr   = document.getElementById('ctr');
+const cbl   = document.getElementById('cbl');
+const cbr   = document.getElementById('cbr');
+
+const d = ms => new Promise(r=>setTimeout(r,ms));
+
+function flash(){
+  glitch.classList.remove('active');
+  void glitch.offsetWidth;
+  glitch.classList.add('active');
+}
+
+// Progress ticker
+let pv=0;
+const pt=setInterval(()=>{
+  pv=Math.min(pv+0.9,100);
+  prog.style.width=pv+'%';
+  if(pv>=100) clearInterval(pt);
+},38);
+
+async function seq(){
+  bg.style.transform = 'scale(1.07)';
+  await d(350);
+  flash();
+  await d(300);
+  bTop.classList.add('open'); bBot.classList.add('open');
+  bg.style.filter = 'brightness(0.28) saturate(0.50)'; bg.style.transform = 'scale(1.0)';
+  await d(700);
+  hl1.classList.add('expand'); hl2.classList.add('expand');
+  await d(450);
+  ey.classList.add('show');
+  await d(420);
+  t1.classList.add('reveal');
+  await d(520);
+  flash();
+  await d(180);
+  t2.classList.add('reveal');
+  await d(550);
+  rule.classList.add('expand');
+  await d(420);
+  yr.classList.add('show');
+  ctr.classList.add('show'); cbl.classList.add('show'); cbr.classList.add('show');
+  await d(600);
+  btn.classList.add('show');
+}
+
+window.addEventListener('load', () => setTimeout(seq, 150));
+
+
+/* PAGE EXIT */
+document.getElementById('btn').addEventListener('click', function(e){
+  e.preventDefault();
+  const href = this.href;
+  const po = document.getElementById('pageOut');
+  po.classList.add('active');
+  setTimeout(()=>{ window.location.href=href; }, 780);
+});
+</script>
+</body>
+</html>

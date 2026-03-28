@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — MHEP Memories</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body, html { height: 100%; overflow: hidden; background: #020c18; }
+
+    .about-wrap {
+      position: relative; width: 100%; height: 100vh;
+      overflow: hidden; display: flex; justify-content: center;
+    }
+
+    video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; opacity: 0;
+      transition: opacity 3s ease;
+    }
+    video.loaded { opacity: 1; }
+
+    .vignette {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(
+        to bottom,
+        rgba(2,12,24,0.95) 0%,
+        rgba(2,12,24,0.30) 25%,
+        rgba(2,12,24,0.30) 75%,
+        rgba(2,12,24,0.95) 100%
+      );
+    }
+
+    .stage {
+      position: relative; z-index: 2;
+      width: 100%; max-width: 600px;
+      height: 100%; overflow: hidden;
+      -webkit-mask-image: linear-gradient(
+        to bottom, transparent 0%, black 14%, black 78%, transparent 100%
+      );
+      mask-image: linear-gradient(
+        to bottom, transparent 0%, black 14%, black 78%, transparent 100%
+      );
+    }
+
+    #crawl {
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      padding: 0 48px 60px;
+      text-align: center;
+      animation: rollUp 390s linear forwards;
+      animation-play-state: paused;
+    }
+    #crawl.go { animation-play-state: running; }
+
+    @keyframes rollUp {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-200%); }
+    }
+
+    .tag {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px; font-weight: 300;
+      letter-spacing: 0.55em; text-transform: uppercase;
+      color: rgba(125,211,252,0.45);
+      margin-bottom: 28px; display: block;
+    }
+    .rule {
+      width: 32px; height: 1px;
+      background: rgba(125,211,252,0.22);
+      margin: 0 auto 40px;
+    }
+    .crawl-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 400; font-style: italic;
+      color: rgba(186,230,253,0.6);
+      letter-spacing: 0.08em;
+      margin-bottom: 48px; line-height: 1.4;
+    }
+    .crawl-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(18px, 2.3vw, 23px);
+      font-weight: 300; font-style: italic;
+      color: rgba(220,242,255,1);
+      line-height: 2.1; margin-bottom: 56px;
+    }
+    .crawl-body p { margin-bottom: 32px; }
+    .crawl-body p:last-child { margin-bottom: 0; }
+    .crawl-sig {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px; font-weight: 300;
+      letter-spacing: 0.35em; text-transform: uppercase;
+      color: rgba(125,211,252,0.28);
+      margin-top: 56px;
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="bg-music" src="Yiruma - Kiss The Rain - Toms Mucenieks (1).mp3" loop></audio>
+
+  <div class="about-wrap">
+    <video id="vid" autoplay muted loop playsinline>
+      <source src="intro.mp4" type="video/mp4">
+    </video>
+    <div class="vignette"></div>
+
+    <div class="stage">
+      <div id="crawl">
+        <span class="tag">Minmahaw Higher Education Program · 2025–2026</span>
+        <div class="rule"></div>
+        <div class="crawl-title">A Year Worth Remembering</div>
+
+        <div class="crawl-body">
+          <p>It still feels unreal to say goodbye after our 10-month journey together.<br>Time passed so quickly, and yet the memories we created feel deep and unforgettable.</p>
+          <p>Even now, I can still remember the fresh air of the first day.<br> Everyone was trying to look cool and calm.<br>The girls came to school with proper makeup, and the boys wore neat and clean shirts.</p>
+          <p>We were all a little shy, trying to show our best selves.<br>But after several days, those makeup looks and nice outfits slowly began to disappear.<br>The water shortage at our school allowed us to see each other's bare faces, and without even realizing it, we started becoming closer.<br>That was the moment when strangers slowly turned into friends, and friends turned into family.</p>
+          <p>We lived the same routine every day in the same compound.<br>We shared shelter, food, classrooms, dorms, and time.<br>We studied together, laughed together, worried about exams together, and sometimes even got annoyed with each other.<br>But all those little things made this place feel like home.<br> When I look back, I don't only see classmates — I see personalities that made every single day colorful and alive</p>
+          <p>I don't think anyone will forget Nightingale, the loudest and boldest voice that could wake up the whole compound, or Hayabusa with his distinct British accent.<br> Davise and his TikTok dances that entertained us, Richard the lone wolf with his ipad the whole year, and Liam the study nerd who reminded us of our responsibilities.<br>Zai, the energetic ever-singing girl, and Lim, the mother of MHEP who nag around the whole school.<br>Kae Du with the constant nagging with her grumpy face, Eh Thar Py with the sharpest tongue, and Dah Thoo, the never-ending talker.</p>
+          <p>Nadi, the sulking baby, and Saung Oo, the Ko Ko's Kalay lay.<br>Khaung Khaung with the unforgettable phrase "ကြောင်လေးတွေကမောင်လေးတွေလိုဘဲ," and Ngar Moe, our yapping grandma.<br>Jasmine, our beloved"မိစံပယ်," and Ardam, the rice lover. Junie, the tiniest creature, standing beside Stella, the giant Chinese ကျဲကျဲ.<br>Tobias, always late for duty, and Moon, truly the best girls' dorm leader of the year.</p>
+          <p>Pone Nyat, the drama queen who made everything more dramatic, and John, our Thae Lay. Naw Naw with the distinct Thawae accent, Shee Sho the gamer kid, and Thar Shee, the want-to-be gay who always made us smile.<br>Pyae Sone with Korean songs in the background, Chit Thet with curly Barbie hair, and Eaint Phoo and Taw Myar living in their soft girl era. Hla Myo, the tall tower we could easily spot in a crowd, and Joel with his distinct and awkward English accent.</p>
+          <p>Naw Paw and Zu Zu, the Lazada queens, and Khin Chan with Ren Ren, the ever-fighting yet the only official couple of the whole MHEP.<br>Zee, Nyan, and Ai Sai the trio who are pretending to be gangsters,<br> Su Hlaing and David Roe the hardworking and best shipped duo.</p>
+          <p> Mee Mee and Khu Rez, the two lovey dovey,<br>and Hser Nay, Rebekha, and Eh K'Pru Soe, the obedient students we could always rely on.</p>
+          <p>All these personalities,<br>all these little habits, all these jokes <br>they created the warmth of our journey.</p>
+          <p>These are not just names; they are memories.<br>They are laughter during meals, whispers in dorms,<br>shared stress before exams, and the comfort of knowing we were never alone.</p>
+          <p>Now we are standing at the end of this chapter, ready to walk different paths.<br>It's both exciting and heartbreaking.<br>I hope each one of us finds success, happiness, and courage in whatever comes next.<br>May we chase our dreams bravely and never forget how strong we are.<br>Even if distance separates us,<br>I hope our memories will always bring us back to this place, to these moments, and to each other.</p>
+          <p>Let's be thankful for being part of each other's lives.<br>Thank you for the laughter,<br>the noise,<br>the chaos,<br>and the love.<br></p>
+          <p>These 10 months may have ended,<br>but the friendship we built will always remain in our heart.</p>
+          <p>No matter where life takes us,<br>I hope we never forget one another —<br> because once,<br> we were not just classmates…</p>
+          <p>we were family.</p>
+        </div>
+
+        <div class="crawl-sig">— Class of 2025–2026</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const vid   = document.getElementById('vid');
+    const crawl = document.getElementById('crawl');
+    const music = document.getElementById('bg-music');
+    vid.addEventListener('canplay', () => vid.classList.add('loaded'));
+    setTimeout(() => {
+      crawl.classList.add('go');
+      music.play().catch(() => {});
+    }, 1700);
+  </script>
+</body>
+</html>
