@@ -48,37 +48,39 @@
   </div>
 
   <style>
-    .masonry {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 12px;
-    }
-    .snap-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: 10px;
-      background: #e2e8f0;
-      aspect-ratio: 4/3;
-    }
-    .snap-item.small-snap {
-      aspect-ratio: 1/1;
-    }
+    /* ── Gallery — complements styles.css ── */
+
+    /* Use CSS columns masonry (matches styles.css .masonry{columns:4}) */
+    .masonry { column-gap: 16px; }
+
+    /* Natural photo height so columns flow like Pinterest */
     .snap-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
+      width: 100%; height: auto; display: block; object-fit: unset;
     }
-    .snap-item:hover img { transform: scale(1.05); }
-    .snap-cap {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 8px 12px;
-      background: linear-gradient(transparent, rgba(0,0,0,0.45));
-      color: #fff;
-      font-size: 13px;
+
+    /* Subtle frame on every photo */
+    .snap-item {
+      border: 1.5px solid rgba(186,230,253,0.4);
+      box-shadow: 0 2px 14px rgba(3,105,161,0.08);
     }
+    .snap-item:hover {
+      border-color: rgba(14,165,233,0.5);
+      box-shadow: 0 16px 40px rgba(3,105,161,0.18);
+    }
+
+    /* 16:9 video cards */
+    .snap-item.video-card {
+      aspect-ratio: 16 / 9;
+      background: #041525;
+      border: 2px solid rgba(125,211,252,0.3);
+      box-shadow: 0 4px 24px rgba(3,105,161,0.2);
+    }
+    .snap-item.video-card video {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+
+    /* Remove old small-snap height cap */
+    .small-snap { max-height: unset; }
   </style>
   <div class="masonry fade-up" style="padding:0 48px 80px;">
     <div class="snap-item"><img loading="lazy" decoding="async" src="graduation/649585302_1491492692486965_1673279547992789769_n.jpg" alt="Graduation"><div class="snap-cap"></div></div>
@@ -175,22 +177,22 @@
     <div class="snap-item small-snap"><img loading="lazy" decoding="async" src="community/Img8.jpg" alt=""></div>
     <div class="snap-item small-snap"><img loading="lazy" decoding="async" src="community/Img9.jpg" alt=""></div>
 
-    <div class="snap-item" style="aspect-ratio:9/16;"><video src="community/V1.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
-    <div class="snap-item" style="aspect-ratio:9/16;"><video src="community/V2.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
-    <div class="snap-item" style="aspect-ratio:9/16;"><video src="community/V3.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
-    <div class="snap-item" style="aspect-ratio:9/16;"><video src="community/V4.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
-    <div class="snap-item" style="aspect-ratio:9/16;"><video src="community/V5.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
+    <div class="snap-item video-card" style="aspect-ratio:16/9;"><video src="community/V1.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
+    <div class="snap-item video-card" style="aspect-ratio:16/9;"><video src="community/V2.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
+    <div class="snap-item video-card" style="aspect-ratio:16/9;"><video src="community/V3.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
+    <div class="snap-item video-card" style="aspect-ratio:16/9;"><video src="community/V4.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
+    <div class="snap-item video-card" style="aspect-ratio:16/9;"><video src="community/V5.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
 
    
 
-    <div class="snap-item" style="aspect-ratio:9/16;"><video src="Third/Video1.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
-    <div class="snap-item" style="aspect-ratio:9/16;"><video src="Third/Video2.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
-    <div class="snap-item" style="aspect-ratio:9/16;"><video src="Third/Video3.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
-    <div class="snap-item" style="aspect-ratio:9/16;"><video src="Third/Video7.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
-    <div class="snap-item" style="aspect-ratio:9/16;"><video src="Third/Video10.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
-    <div class="snap-item" style="aspect-ratio:9/16;"><video src="Third/Video12.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
-    <div class="snap-item" style="aspect-ratio:9/16;"><video src="Third/Video13.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
-    <div class="snap-item" style="aspect-ratio:9/16;"><video src="Third/Video16.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
+    <div class="snap-item video-card" style="aspect-ratio:16/9;"><video src="Third/Video1.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
+    <div class="snap-item video-card" style="aspect-ratio:16/9;"><video src="Third/Video2.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
+    <div class="snap-item video-card" style="aspect-ratio:16/9;"><video src="Third/Video3.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
+    <div class="snap-item video-card" style="aspect-ratio:16/9;"><video src="Third/Video7.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
+    <div class="snap-item video-card" style="aspect-ratio:16/9;"><video src="Third/Video10.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
+    <div class="snap-item video-card" style="aspect-ratio:16/9;"><video src="Third/Video12.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
+    <div class="snap-item video-card" style="aspect-ratio:16/9;"><video src="Third/Video13.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
+    <div class="snap-item video-card" style="aspect-ratio:16/9;"><video src="Third/Video16.mp4" preload="none" loop controls style="width:100%;height:100%;object-fit:cover;"></video></div>
     <div class="snap-item small-snap"><img loading="lazy" decoding="async" src="Trip/Img1.jpg" alt=""></div>
     <div class="snap-item small-snap"><img loading="lazy" decoding="async" src="Trip/Img2.jpg" alt=""></div>
     <div class="snap-item small-snap"><img loading="lazy" decoding="async" src="Trip/Img3.jpg" alt=""></div>
@@ -218,6 +220,7 @@
     </div>
     <p class="footer-copy">© 2025 MHEP — All memories reserved</p>
   </footer>
+</div>
 
   <script>
     const audio = document.getElementById('bg-audio');
@@ -240,6 +243,6 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); fadeObs.unobserve(e.target); } });
     }, { threshold: 0.07 });
     document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
-  </script>
+</script>
 </body>
 </html>
